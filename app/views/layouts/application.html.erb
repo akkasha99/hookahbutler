@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hookah Butler</title>
+  <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+  <script src="//maps.google.com/maps/api/js?v=3.13&amp;sensor=false&amp;libraries=geometry" type="text/javascript"></script>
+  <script src='//google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js' type='text/javascript'></script>
+</head>
+<!--<body>-->
+
+<%#= yield %>
+
+<!--</body>-->
+
+<body>
+<div id="g_holder">
+  <div class="n_fot">
+    <div id="flash">
+      <%= render :partial => "layouts/flash", :object => flash %>
+    </div>
+    <%= render :partial => "layouts/header" %>
+  </div>
+  <div class="n_fot g_push">
+    <div class="shadow" style="display: none !important;"></div>
+    <div id="ajax_loader" class="ajax_loader" style="display: none !important;"><%= image_tag("/assets/ajax_loader.gif", :width => 100) %></div>
+    <%= yield %>
+  </div>
+  <div class="n_fot">
+    <%= render :partial => "layouts/footer" %>
+  </div>
+</div>
+</body>
+
+</html>

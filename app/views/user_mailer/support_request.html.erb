@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <title>Hookah Butler</title>
+
+  <meta name="viewport" content="width=device-width"/>
+  <% attachments.inline['app-store-btn.png'] = File.read("#{Rails.root}/app/assets/images/app-store-btn.png") %>
+  <% attachments.inline['banner.jpg'] = File.read("#{Rails.root}/app/assets/images/banner.jpg") %>
+  <% attachments.inline['google-play-btn.png'] = File.read("#{Rails.root}/app/assets/images/google-play-btn.png") %>
+  <% attachments.inline['logo.png'] = File.read("#{Rails.root}/app/assets/images/logo.png") %>
+  <% attachments.inline['product_image.png'] = File.read("#{Rails.root}/app/assets/images/product_image.png") %>
+  <% attachments.inline['sep.png'] = File.read("#{Rails.root}/app/assets/images/sep.png") %>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+  <style type="text/css">
+      * {
+          margin: 0;
+          padding: 0;
+      }
+
+      * {
+          font-family: 'Montserrat', sans-serif;
+      }
+
+      .collapse {
+          margin: 0;
+          padding: 0;
+      }
+
+      body {
+          -webkit-font-smoothing: antialiased;
+          -webkit-text-size-adjust: none;
+          width: 100% !important;
+          height: 100%;
+          margin: 0 auto;
+      }
+
+      table.head-wrap {
+          width: 100%;
+      }
+
+      table.body-wrap {
+          width: 100%;
+      }
+
+      .container {
+          clear: both !important;
+          display: block !important;
+          height: 803px;
+          margin: 0 auto !important;
+          max-width: 600px !important;
+      }
+
+      .content {
+          max-width: 100%;
+          margin: 0 auto;
+          display: block !important;
+          padding: 13px 18px;
+      }
+
+      .content table {
+          width: 100%;
+      }
+
+      .clear {
+          display: block;
+          clear: both;
+      }
+
+      td {
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+      }
+
+      img {
+          width: 100%;
+      }
+
+      @media only screen and (max-width: 600px) {
+
+          div[class="column"] {
+              width: auto !important;
+              float: none !important;
+          }
+
+          table.social div[class="column"] {
+              width: auto !important;
+          }
+
+      }
+  </style>
+
+</head>
+
+<body>
+<!-- BODY -->
+<table class="body-wrap">
+
+  <tbody>
+
+  <tr>
+    <td bgcolor="#FFFFFF" class="container">
+      <div class="content">
+
+        <table>
+          <tr>
+            <td style=" width:50%; font-size:9px; letter-spacing:.8px; font-family:Montserrat; text-transform:uppercase; font-weight:400;">OPEN
+              IN BROWSER
+            </td>
+            <td style=" width:50%; font-size:9px; letter-spacing:.8px; font-family:Montserrat; text-align:right; text-transform:uppercase; font-weight:400;">FORWARD
+              TO FRIEND
+            </td>
+          </tr>
+        </table>
+        <table>
+          <tr>
+            <td style="width:33.3%;"></td>
+            <td style="width:33.3%;">
+              <div style="width:56%; padding:0 0 3px 0; margin:auto; position:relative; left: 0;right: 0;bottom: 10px;">
+                <a href="#"><img src="<%= attachments.inline['logo.png'].url %>" alt=""/></a></div>
+            </td>
+            <td style="width:33.3%;"></td>
+          </tr>
+        </table>
+
+        <table>
+          <tr>
+            <td style="width:100%;"><a href="#"><img src="<%= attachments.inline['banner.jpg'].url %>" alt=""/></a></td>
+          </tr>
+        </table>
+
+        <table>
+          <tr>
+            <td style="width:100%; font-size: 14px; color:#292929; font-family: 'Open Sans', sans-serif; font-weight:300; text-align:center;padding: 29px 0 0 0;letter-spacing: 0.3px;"><%= @user.full_name %>
+              requested
+            </td>
+          </tr>
+          <tr>
+            <td style="width:100%;" align="center">
+              <a style=" text-decoration:none; font-size: 16px; color:#36c7dd; font-family: 'Montserrat', sans-serif; font-weight:700; text-align:center;padding: 0px 0 0 0;letter-spacing: .6px;line-height: 16px;" href="#">  <%= @description %></a>
+            </td>
+          </tr>
+        </table>
+
+        <table>
+          <tr>
+            <td style="width:100%; padding:34px 0;"><img src="<%= attachments.inline['sep.png'].url %>" alt=""/></td>
+          </tr>
+        </table>
+
+        <table>
+          <tr>
+            <td style="width:100%; font-size: 13px; color:#292929; font-family: 'Montserrat', sans-serif; font-weight:400; text-transform:uppercase; text-align:center;padding: 4px 0 0 0;letter-spacing: 0.4px;">SKIP
+              THE LINES, PREODER & PICKUP
+            </td>
+          </tr>
+          <tr>
+            <td style="width:100%; font-size: 22px; color:#292929; text-transform:uppercase; font-family: 'Montserrat', sans-serif; font-weight:700; text-align:center;padding: 0px 0 0 0;letter-spacing: 1.7px;line-height: 22px;">DOWNLOAD
+              THE APP
+            </td>
+          </tr>
+        </table>
+
+        <table>
+          <tr>
+            <td width="50%" align="right">
+              <div style="width: 48%;padding: 16px 0;">
+                <a href="#"><img src="<%= attachments.inline['app-store-btn.png'].url %>" alt=""/></a></div>
+            </td>
+            <td width="50%">
+              <div style="width: 43%;padding: 0px 0 0 15px;">
+                <a href="#"><img src="<%= attachments.inline['google-play-btn.png'].url %>" alt=""/></a></div>
+            </td>
+          </tr>
+        </table>
+
+      </div>
+
+      <table width="100%" bgcolor="#f1f1f1" style="margin: 9px 0px 0px;">
+        <tbody>
+        <tr>
+          <td align="center" width="100%" style="font-family: 'Open Sans', sans-serif; font-weight:300; color: #717171;font-size: 10px;padding: 13px 0 0 0;letter-spacing: .3px;">This
+            email was sent to
+            <a style="color:#717171; text-decoration:none; font-family: 'Open Sans', sans-serif; font-weight:300; " href="mailto:<%= @user.email %>"><%= @user.email %></a>
+            by
+            <a style="color:#717171; text-decoration:none; font-family: 'Open Sans', sans-serif; font-weight:300; " href="mailto:hbcontactcenter@gmail.com">hbcontactcenter@gmail.com</a>
+          </td>
+        </tr>
+        <tr>
+          <td align="center" width="100%" style="font-family: 'Open Sans', sans-serif; font-weight:300; color: #717171;font-size: 10px;padding: 2px 0 0 0;letter-spacing: .3px;">Update
+            Profile/Email Address | Instant removal with SafeUnsubscribe&#8482; |
+            <a style="color:#717171;font-family: 'Open Sans', sans-serif; font-weight:300;  text-decoration:none;" href="<%= Rails.root %>privacy_policy">Privacy
+              Policy</a>.
+          </td>
+        </tr>
+
+        <tr>
+          <td align="center" width="100%" style="font-family: 'Open Sans', sans-serif; font-weight:300; color: #717171;font-size: 11px;padding: 11px 0 20px 0;letter-spacing: px;">
+            <a style="color:#717171; text-decoration:none; font-family: 'Open Sans', sans-serif; font-weight:300; " href="#">Hookah
+              Butler</a> | New York,NY
+          </td>
+        </tr>
+
+        </tbody>
+        </tr>
+      </table>
+
+    </td>
+    <!--bg-color end-->
+  </tr>
+  </tbody>
+</table>
+<!-- /BODY -->
+</body>
+</html>

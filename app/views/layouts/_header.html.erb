@@ -1,0 +1,51 @@
+<section id="grasp_head_tp">
+  <div class="container">
+    <div class="row">
+      <div class="four columns">
+        <div class="gs_logo"><a href="/" style="margin: 0 0 0 50px" id='logo_href'><%= image_tag("logo.png") %></a></div>
+        <!--gs_logo ends-->
+      </div>
+      <div class="eight columns gnav">
+        <nav class="nav center">
+          <% if user_signed_in? %>
+              <ul>
+                <% if current_user.role == "super_admin" %>
+                    <li class="<%= params[:controller].include?('super_admin/merchants') ? 'current' : '' %>">
+                      <a href="/super_admin/merchants">STORE OWNERS</a>
+                    </li>
+                    <li class="<%= params[:controller].include?('super_admin/customers') ? 'current' : '' %>">
+                      <a href="/super_admin/customers">CUSTOMERS</a>
+                    </li>
+                    <li class="<%= params[:controller].include?('super_admin/orders') ? 'current' : '' %>">
+                      <a href="/super_admin/orders">ORDERS</a>
+                    </li>
+                    <li class="<%= params[:controller].include?('super_admin/reviews') ? 'current' : '' %>">
+                      <a href="#">REVIEWS</a>
+                    </li>
+                    <li class="<%= params[:controller].include?('super_admin/analytics') ? 'current' : '' %>">
+                      <a href="#">ANALYTICS</a>
+                    </li>
+                    <li class="<%= params[:controller].include?('super_admin/categories') ? 'current' : '' %>">
+                      <a href="/super_admin/categories">CATEGORIES</a>
+                    </li>
+                    <li class="<%= params[:controller].include?('super_admin/sub_categories') ? 'current' : '' %>">
+                      <a href="/super_admin/sub_categories">SUB CATEGORIES</a>
+                    </li>
+                <% end %>
+                <li class="<%= params[:controller].include?('users/registrations') ? 'current' : '' %>">
+                  <a href="<%= account_path %>">ACCOUNT</a>
+                </li>
+                <li>
+                  <a href="<%= sign_out_path %>">SIGN OUT</a>
+                </li>
+              </ul>
+          <% end %>
+        </nav>
+        <!--nav center ends-->
+      </div>
+      <!--cnav ends-->
+    </div>
+    <!--row ends-->
+  </div>
+  <!--container ends-->
+</section><!--grasp_head_tp ends-->

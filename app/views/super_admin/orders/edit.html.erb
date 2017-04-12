@@ -1,0 +1,196 @@
+<div class="portlet box blue">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="fa fa-gift"></i>Order Detail
+    </div>
+    <div class="tools">
+      <a class="collapse" href="javascript:;">
+      </a>
+      <a class="config" data-toggle="modal" href="#portlet-config">
+      </a>
+      <a class="reload" href="javascript:;">
+      </a>
+      <a class="remove" href="javascript:;">
+      </a>
+    </div>
+  </div>
+  <div class="portlet-body form">
+    <!-- BEGIN FORM-->
+    <form role="form" class="form-horizontal">
+      <div class="form-body">
+        <h3 class="form-section">Order Detail</h3>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="control-label col-md-4">Customer:</label>
+
+              <div class="col-md-6">
+                <p class="form-control-static">
+                  <%= @order.user.full_name if @order.user %>
+                </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-4">Order ID:</label>
+
+              <div class="col-md-6">
+                <p class="form-control-static">
+                  <%= @order.order_number %>
+                </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-4">Status:</label>
+
+              <div class="col-md-6">
+                <p class="form-control-static">
+                  <%= @order.status %>
+                </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-4">Store:</label>
+
+              <div class="col-md-6">
+                <p class="form-control-static">
+                  <%= @order.shop.name if @order.shop %>
+                </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-4">Created:</label>
+
+              <div class="col-md-6">
+                <p class="form-control-static">
+                  <%= @order.created_at.strftime("%m/%d/%Y %H:%M:%S") %>
+                </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-4">Payment Methods:</label>
+
+              <div class="col-md-6">
+                <p class="form-control-static">
+                  <% unless @credit_card.blank? %>
+                      <%= @credit_card.card_type %> *********<%= result.credit_card.last_4 %>
+                  <% end %>
+                </p>
+              </div>
+            </div>
+          </div>
+          <!--/span-->
+          <div class="col-md-6">
+            <table class="table table-striped table-bordered table-hover" id="category_table">
+              <thead>
+              <tr>
+                <th>
+                  Item
+                </th>
+                <th>
+                  Add ons
+                </th>
+                <th>
+                  Quantity
+                </th>
+                <th>
+                  Price
+                </th>
+                <th>
+                  Sub Total
+                </th>
+              </tr>
+              </thead>
+              <% unless @order.order_line_items.blank? %>
+                  <tbody>
+                  <% @order.order_line_items.each_with_index do |order_line_item, index| %>
+                      <tr class="odd gradeX">
+                        <td>
+                          <%= order_line_item.item_size.item.name %>
+                        </td>
+                        <td></td>
+                        <td><%= order_line_item.quantity %></td>
+                        <% unless order_line_item.price.blank? %>
+                            <td>$<%= "%.2f" % order_line_item.price %> </td>
+                        <% else %>
+                            <td>$0</td>
+                        <% end %>
+                        <% unless order_line_item.total_price.blank? %>
+                            <td>$<%= "%.2f" % order_line_item.total_price %> </td>
+                        <% else %>
+                            <td>$0</td>
+                        <% end %>
+                      </tr>
+                      <% order_line_item.order_add_ons.each do |order_add_on| %>
+                          <tr class="odd gradeX">
+                            <td>
+
+                            </td>
+                            <td>
+                              <%= order_line_item.item_size.item.name %>
+                            </td>
+                            <td><%= order_add_on.quantity %></td>
+                            <% unless order_add_on.price.blank? %>
+                                <td>$<%= "%.2f" % order_add_on.price %> </td>
+                            <% else %>
+                                <td>$0</td>
+                            <% end %>
+                            <% unless order_add_on.total_price.blank? %>
+                                <td>$<%= "%.2f" % order_add_on.total_price %> </td>
+                            <% else %>
+                                <td>$0</td>
+                            <% end %>
+                          </tr>
+                      <% end %>
+                  <% end %>
+                  </tbody>
+              <% end %>
+            </table>
+            <div class="div_hold">
+
+
+              <div class="div_main">
+                <label class="pull-left div_weight">Tax:</label>
+
+                <p class="pull-right txt_r ">
+                  $0
+                </p>
+
+              </div>
+              <div class="div_main">
+                <label class="pull-left div_weight">Order Total:</label>
+
+                <p class="pull-right txt_r ">
+                  <% unless @order.total_amount.blank? %>
+                    <td>$<%= "%.2f" % @order.total_amount %> </td>
+                <% else %>
+                    <td>$0</td>
+                <% end %>
+                </p>
+
+              </div>
+            </div>
+
+          </div>
+          <!--/span-->
+        </div>
+        <!--/row-->
+
+
+      </div>
+      <!--<div class="form-actions fluid">-->
+      <!--<div class="row">-->
+      <!--<div class="col-md-6">-->
+      <!--<div class="col-md-offset-3 col-md-9">-->
+      <!--<button class="btn green" type="submit"><i class="fa fa-pencil"></i> Edit</button>-->
+      <!--<button class="btn default" type="button">Cancel</button>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--<div class="col-md-6">-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--</div>-->
+    </form>
+    <!-- END FORM-->
+  </div>
+</div>

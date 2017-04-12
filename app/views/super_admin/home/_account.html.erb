@@ -1,0 +1,47 @@
+<section id="grsp_content">
+  <div class="container sixteen colgrid">
+    <%= render :partial => "/layouts/user_info" %>
+    <!--row ends-->
+
+    <div class="row">
+      <div class="sixteen columns g_p_ac">
+        <div class="eight columns">
+          <section class="g_inputs_hld">
+            <h3>PERSONAL LOGIN INFO</h3>
+
+            <div class="g_inputitem">
+              <%= f.text_field :name, :placeholder => "NAME" %>
+            </div>
+            <!--g_inputitem ends-->
+            <div class="g_inputitem">
+              <%= f.email_field :email, :placeholder => "EMAIL" %>
+            </div>
+          </section>
+        </div>
+        <!--eight columns ends-->
+      </div>
+      <!--g_p_ac ends-->
+    </div>
+
+    <!--row ends-->
+    <div class="row">
+      <div class="sixteen columns">
+        <div class="eight columns">
+        </div>
+        <!--eight columns ends-->
+        <div class="eight columns">
+          <section class="g_inpts_hld">
+            <div class="login_btn gstmrg">
+              <a href="javascript:void(0);">SAVE CHANGES</a>
+            </div>
+            <!--login_btn ends-->
+          </section>
+        </div>
+        <!--eight columns ends-->
+      </div>
+      <!--g_p_ac ends-->
+    </div>
+    <!--row ends-->
+  </div>
+  <!--container ends-->
+</section><!--grsp_content ends-->

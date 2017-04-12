@@ -1,0 +1,112 @@
+<!--<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>-->
+
+<div class="row">
+  <div class="col-md-12">
+    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+    <h3 class="page-title">
+      Analytics
+      <small>statistics and more</small>
+    </h3>
+    <ul class="page-breadcrumb breadcrumb">
+      <li>
+        <i class="fa fa-home"></i>
+        <a href="/super_admin/dashboard">Home</a>
+        <i class="fa fa-angle-right"></i>
+      </li>
+      <li>
+        <a href="/super_admin/analytics">Dashboard</a>
+      </li>
+      <li class="pull-right">
+        <div id="dashboard-report-range_new" class="dashboard-date-range tooltips" data-placement="top" data-original-title="Change dashboard date range">
+          <i class="icon-calendar"></i>
+          <span></span>
+          <i class="fa fa-angle-down"></i>
+        </div>
+      </li>
+    </ul>
+    <!-- END PAGE TITLE & BREADCRUMB-->
+  </div>
+</div>
+<div id="dash_list">
+  <%= render :partial => "/super_admin/analytics/analytic_list" %>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#dashboard-report-range_new span').html(moment().subtract('days', 29).format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+        $('#dashboard-report-range_new').show();
+        var start_date = moment().subtract('days', 29).format('YYYY-MM-DD');
+        var end_date = moment().format('YYYY-MM-DD');
+        $("#ajax_loader").show();
+        $(".shadow").show();
+        $.ajax({
+            url: '/super_admin/analytics/get_analytics?start_date=' + start_date + "&end_date=" + end_date,
+            type: 'get',
+            dataType: 'html',
+            processData: false,
+            success: function (data) {
+                $("#dash_list").html(data);
+                $("#ajax_loader").hide();
+                $(".shadow").hide();
+            }
+        });
+    });
+
+    $('#dashboard-report-range_new').daterangepicker({
+                opens: (Metronic.isRTL() ? 'right' : 'left'),
+                startDate: moment().subtract('days', 29),
+                endDate: moment(),
+//                minDate: '01/01/2012',
+//                maxDate: '12/31/2014',
+                dateLimit: {
+                    days: 60
+                },
+                showDropdowns: false,
+                showWeekNumbers: true,
+                timePicker: false,
+                timePickerIncrement: 1,
+                timePicker12Hour: true,
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
+                    'Last 7 Days': [moment().subtract('days', 6), moment()],
+                    'Last 30 Days': [moment().subtract('days', 29), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+                },
+                buttonClasses: ['btn btn-sm'],
+                applyClass: ' blue',
+                cancelClass: 'default',
+                format: 'MM/DD/YYYY',
+                separator: ' to ',
+                locale: {
+                    applyLabel: 'Apply',
+                    fromLabel: 'From',
+                    toLabel: 'To',
+                    customRangeLabel: 'Custom Range',
+                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                    monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    firstDay: 1
+                }
+            },
+            function (start, end) {
+                $('#dashboard-report-range_new span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                var start_date = start.format('YYYY-MM-DD')
+                var end_date = end.format('YYYY-MM-DD')
+                $("#ajax_loader").show();
+                $(".shadow").show();
+                $.ajax({
+                    url: '/super_admin/analytics/get_analytics?start_date=' + start_date + "&end_date=" + end_date,
+                    type: 'get',
+                    dataType: 'html',
+                    processData: false,
+                    success: function (data) {
+                        $("#dash_list").html(data);
+                        $("#ajax_loader").hide();
+                        $(".shadow").hide();
+                    }
+                });
+            });
+
+
+</script>

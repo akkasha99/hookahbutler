@@ -1,0 +1,316 @@
+<script type="text/javascript"
+        src="//maps.google.com/maps/api/js?sensor=false&libraries=places"></script>
+<%= javascript_include_tag "jquery.geocomplete" %>
+<div class="row">
+  <div class="col-md-12">
+    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+    <h3 class="page-title">
+      Manage Store Owners
+    </h3>
+    <ul class="page-breadcrumb breadcrumb">
+      <li>
+        <i class="fa fa-home"></i>
+        <a href="/super_admin/dashboard">Home</a>
+        <i class="fa fa-angle-right"></i>
+      </li>
+      <li>
+        <a href="/super_admin/merchants">Store Owners</a>
+      </li>
+
+    </ul>
+    <!-- END PAGE TITLE & BREADCRUMB-->
+  </div>
+</div>
+<!-- END PAGE HEADER-->
+
+<div class="row">
+  <div class="col-md-6 ">
+    <!-- BEGIN SAMPLE FORM PORTLET-->
+    <div class="portlet box blue">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="fa fa-gift"></i> Create New Store Owners
+        </div>
+        <div class="tools">
+          <a class="collapse" href="">
+          </a>
+
+        </div>
+      </div>
+      <div class="portlet-body form">
+        <%= form_for(@user, :url => super_admin_merchants_path) do |f| %>
+
+            <div class="form-body">
+              <div class="row" id="errors"></div>
+              <div class="row">
+                <div class="col-md-6 ">
+                  <div class="form-group">
+                    <label>Email</label>
+
+                    <div class="input-group">
+                      <%= f.text_field :email, :autofocus => true, :class => "form-control", :placeholder => "Email *" %>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 ">
+                  <div class="form-group">
+                    <label>Owner</label>
+
+                    <div class="input-group">
+                      <%= f.text_field :name, :autofocus => true, :class => "form-control", :placeholder => "Owner *" %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <% f.object.shop ||= Shop.new %>
+              <%= f.fields_for :shop do |s| %>
+                  <div class="row">
+                    <div class="col-md-6 ">
+                      <div class="form-group">
+                        <label>Store</label>
+
+                        <div class="input-group">
+                          <%= s.text_field :name, :autofocus => true, :class => "form-control", :placeholder => "Store *" %>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 ">
+                      <div class="form-group">
+                        <label>Phone</label>
+
+                        <div class="input-group">
+                          <%= s.text_field :phone, :autofocus => true, :class => "form-control", :placeholder => "Phone *" %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Date of Birth</label>
+
+                        <div class="input-group">
+                          <%= f.text_field :date_of_birth, :class => "form-control date-picker", :placeholder => "Date of Birth *" %>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Address</label>
+
+                        <div class="input-group">
+                          <%= s.text_field :address, :autofocus => true, :class => "form-control", :placeholder => "Address *" %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>City</label>
+
+                        <div class="input-group">
+                          <%= s.text_field :city, :class => "form-control", :placeholder => "City *" %>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-5">
+                      <div class="form-group">
+                        <label>State</label>
+
+                        <div class="input-group">
+                          <%= subregion_select(nil, "user[shop_attributes][state]", "US", options={:include_blank => "Select State"}, :class => "form-control") %>
+                          <%#= s.text_field :state, :autofocus => true, :class => "form-control", :placeholder => "State *" %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Zip</label>
+
+                        <div class="input-group">
+                          <%= s.text_field :zip_code, :class => "form-control", :placeholder => "Zip *" %>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-5">
+                      <div class="form-group">
+                        <label>Account Holder Type</label>
+
+                        <div class="input-group">
+                          <%= select_tag "account_holder", options_for_select(["individual", "company"], "individual"), :class => "form-control" %>
+                          <%#= s.text_field :state, :autofocus => true, :class => "form-control", :placeholder => "State *" %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              <% end %>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Routing Number</label>
+
+                    <div class="input-group">
+                      <%= text_field_tag :routing_number, nil, :class => "form-control", :placeholder => "Routing Number *" %>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Account Number</label>
+
+                    <div class="input-group">
+                      <%= text_field_tag :account_number, nil, :class => "form-control", :placeholder => "Account Number *" %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Password</label>
+
+                    <div class="input-group">
+                      <%= f.password_field :password, :class => "form-control", :placeholder => "Password *" %>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Confirm</label>
+
+                    <div class="input-group">
+                      <%= f.password_field :password_confirmation, :class => "form-control", :placeholder => "Confirm Password *" %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="form-actions">
+              <div class="z_100" id="save-btn">
+                <a class="btn blue" href="#">Save</a>
+              </div>
+              <!--<button class="btn blue" type="submit">Update</button>-->
+              <%#= f.submit "Save", :class => "btn blue" %>
+            </div>
+        <% end %>
+      </div>
+    </div>
+    <!-- END SAMPLE FORM PORTLET-->
+
+  </div>
+</div>
+
+<div class="clearfix">
+</div>
+
+</div>
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#user_shop_attributes_phone").mask("999-999-9999");
+//        $(".datepicker").datepicker()
+        $('.date-picker').datepicker({
+            rtl: Metronic.isRTL(),
+            autoclose: true,
+            format: 'mm-dd-yyyy'
+        });
+        var placeholder = " ";
+        $("input[type=text],input[type=email],input[type=password]").focus(function () {
+            placeholder = $(this).attr("placeholder");
+            return $(this).attr("placeholder", " ");
+        });
+        $("input[type=text],input[type=email],input[type=password]").blur(function () {
+            if ($(this).val() === "") {
+                return $(this).attr("placeholder", placeholder);
+            }
+        });
+
+        $("#save-btn").children("a").click(function () {
+            $("#ajax_loader").show();
+            $(".shadow").show();
+            Stripe.setPublishableKey("pk_live_SIsyJEjYh9BNCyBcrBqQC36g");
+            is_routing_number_valid = Stripe.bankAccount.validateRoutingNumber($("#routing_number").val(), 'US')
+            if (is_routing_number_valid) {
+                Stripe.bankAccount.createToken({
+                    country: "US",
+                    currency: "USD",
+                    routing_number: $("#routing_number").val(),
+                    account_number: $("#account_number").val(),
+                    account_holder_name: $("#user_name").val(),
+                    account_holder_type: $("#account_holder").val()
+                }, stripeResponseHandler);
+            }
+            else {
+                $("#ajax_loader").hide();
+                $(".shadow").hide();
+                alert("Routing number is invalid.")
+            }
+        });
+
+        function stripeResponseHandler(status, response) {
+            if (response.error) {
+                $("#ajax_loader").hide();
+                $(".shadow").hide();
+                alert(response.error.message)
+            } else {
+                $("#save-btn").parents("form").append($('<input type="hidden" name="stripeToken" />').val(response.id));
+                $.post($("#save-btn").parents("form").attr("action"), $("#save-btn").parents("form").serialize(), (function (response) {
+                    if (response.success) {
+                        window.location.href = response.url
+                    } else {
+                        $("#errors").html(response.html);
+                        $("#ajax_loader").hide();
+                        $(".shadow").hide();
+                    }
+                }), "json");
+                return false;
+            }
+        }
+    });
+
+    function clear_fields() {
+        $("#user_shop_attributes_zip_code").val("");
+        $("#user_shop_attributes_country").val("");
+        $("#user_shop_attributes_state").val("");
+        $("#user_shop_attributes_city").val("");
+    }
+
+    function load_location() {
+        clear_fields();
+        var geo = new google.maps.Geocoder;
+        geo.geocode({'address': $("#user_shop_attributes_address").val()}, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                // loop through to get address, city, state, zip
+                $.each(results[0].address_components, function () {
+                    console.log(results[0]);
+                    switch (this.types[0]) {
+                        case "postal_code":
+                            $("#user_shop_attributes_zip_code").val(this.short_name);
+                            break;
+                        case "country":
+                            $("#user_shop_attributes_country").val(this.short_name);
+                            break;
+                        case "administrative_area_level_1":
+                            $("#user_shop_attributes_state").val(this.short_name);
+                            break;
+                        case "locality":
+                            $("#user_shop_attributes_city").val(this.short_name);
+                            break;
+                    }
+                });
+            } else {
+                hudMsg("error", "Location is Invalid: ");
+                return false
+            }
+        });
+    }
+
+</script>

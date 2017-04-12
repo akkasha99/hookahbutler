@@ -1,0 +1,174 @@
+<div class="row">
+  <div class="col-md-12">
+    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+    <h3 class="page-title">
+      Transactions
+      <small>Shop Transactions</small>
+    </h3>
+    <ul class="page-breadcrumb breadcrumb">
+      <li>
+        <i class="fa fa-home"></i>
+        <a href="/super_admin/dashboard">Home</a>
+        <i class="fa fa-angle-right"></i>
+      </li>
+      <li>
+        <a href="/super_admin/transactions">All Transactions</a>
+        <!--<i class="fa fa-angle-right"></i>-->
+      </li>
+    </ul>
+    <!-- END PAGE TITLE & BREADCRUMB-->
+  </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+  <div class="col-md-12">
+    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+    <div class="portlet box grey-cascade">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="fa fa-globe"></i>Shop Uncharged Transactions
+        </div>
+        <div class="tools">
+          <a href="javascript:;" class="collapse">
+          </a>
+          </a>
+          <a href="javascript:;" class="reload">
+          </a>
+          <a href="javascript:;" class="remove">
+          </a>
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div class="table-toolbar">
+        </div>
+        <div id="customer_lis">
+          <table class="table table-striped table-bordered table-hover" id="order_table">
+            <thead>
+            <tr>
+              <th>
+                Shop
+              </th>
+              <th>
+                Order ID
+              </th>
+              <th>
+                Customer
+              </th>
+              <th>
+                Amount
+              </th>
+              <th>
+                Created
+              </th>
+              <th>
+                Convenience Fee
+              </th>
+            </tr>
+            </thead>
+            <% unless @uncharged_transactions.blank? %>
+                <tbody>
+                <% @uncharged_transactions.each_with_index do |transaction, index| %>
+                    <tr class="odd gradeX">
+                      <td>
+                        <%= transaction.shop.name %>
+                      </td>
+                      <td>
+                        <%= transaction.order_id %>
+                      </td>
+                      <td>
+                        <%= transaction.user.name %>
+                      </td>
+                      <td class="center">
+                        <%= '%.2f' % (transaction.amount/100) %>
+                      </td>
+                      <td class="center">
+                        <%= transaction.created_at.strftime("%m-%d-%Y  %H:%M:%S %p") %>
+                      </td>
+                      <td class="center">
+                        <%= '%.2f' % transaction.convenience_fee %>
+                      </td>
+                    </tr>
+                <% end %>
+                </tbody>
+            <% end %>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- END EXAMPLE TABLE PORTLET-->
+  </div>
+</div>
+
+</div>
+</div>
+
+
+<script>
+    jQuery(document).ready(function () {
+        TableManaged.init();
+        initialize_table();
+    });
+
+    function initialize_table() {
+        var active_table = $('#customer_table');
+
+        // begin first table
+        active_table.dataTable({
+            "columns": [
+                {
+                    "orderable": true
+                },
+                {
+                    "orderable": true
+                },
+                {
+                    "orderable": true
+                },
+                {
+                    "orderable": false
+                }
+
+
+            ],
+            "lengthMenu": [
+                [5, 15, 20, -1],
+                [5, 15, 20, "All"] // change per page values here
+            ],
+            // set the initial value
+            "pageLength": 5,
+            "pagingType": "bootstrap_full_number",
+            "language": {
+                "lengthMenu": "_MENU_ records",
+                "paginate": {
+                    "previous": "Prev",
+                    "next": "Next",
+                    "last": "Last",
+                    "first": "First"
+                }
+            },
+            "columnDefs": [
+                {  // set default column settings
+                    'orderable': false,
+                    'targets': [0]
+                },
+                {
+                    "searchable": false,
+                    "targets": [0]
+                }
+            ],
+            "order": [
+                [1, "asc"]
+            ] // set first column as a default sort by asc
+        });
+
+    }
+
+</script>
+
+
+
+
+
+
+

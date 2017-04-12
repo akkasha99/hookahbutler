@@ -1,0 +1,70 @@
+<table class="table table-striped table-bordered table-hover" id="customer_table">
+  <thead>
+  <tr>
+    <th>
+      Merchant Name
+    </th>
+    <th>
+      Total Transactions
+    </th>
+    <th>
+      Amount To Be Charged
+    </th>
+    <th>
+      Charge / View
+    </th>
+  </tr>
+  </thead>
+  <% unless @shop_un_charged_transactions.blank? %>
+      <tbody>
+      <% @shop_un_charged_transactions.each_with_index do |shop, index| %>
+          <tr class="odd gradeX">
+
+            <td>
+              <%= shop.name %>
+            </td>
+            <td>
+              <%= shop.order_transactions.length %></a>
+            </td>
+            <td class="center">
+              <%= '%.2f' % shop.order_transactions.map { |h| h[:convenience_fee] }.sum %>
+            </td>
+            <td>
+              <a href="javascript:void(0)" style="text-decoration:none">
+                <span class="icon fa fa-dollar" onclick="charge_merchant('<%= shop.id %>','<%= shop.order_transactions.map{|x| x[:id]} %>')">Charge</span>
+              </a>
+              &nbsp;/&nbsp;&nbsp;&nbsp;
+              <a href="/super_admin/transactions/uncharged_shop_transactions?id=<%= shop.id %>" style="text-decoration:none" onclick="view_charged_transactions('<%= shop.id %>',false)">
+                <span class="icon fa fa-expand">View</span>
+              </a>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+  <% end %>
+</table>
+
+<script>
+    function charge_merchant(shop_id, transactions_array) {
+        apprise("Are you sure you have charged this merchant?", {'confirm': true}, function (r) {
+            if (r) {
+                $('.shadow').show();
+                $('.ajax_loader').show();
+                $.ajax({
+                    url: '/super_admin/transactions/charge_merchants?id=' + shop_id + "&transaction_array=" + transactions_array,
+                    type: 'get',
+                    dataType: 'html',
+                    processData: false,
+                    success: function (data) {
+                        if (data == "success") {
+                            hudMsg("success", "Updated");
+                            $("#ajax_loader").hide();
+                            $(".shadow").hide();
+                            window.location.href = "/super_admin/transactions"
+                        }
+                    }
+                });
+            }
+        });
+    }
+</script>

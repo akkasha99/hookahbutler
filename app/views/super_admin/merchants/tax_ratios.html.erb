@@ -1,0 +1,139 @@
+<div class="row">
+  <div class="col-md-12">
+    <h3 class="page-title">
+      Manage Stats
+    </h3>
+    <ul class="page-breadcrumb breadcrumb">
+      <li>
+        <i class="fa fa-home"></i>
+        <a href="/super_admin/dashboard">Home</a>
+        <i class="fa fa-angle-right"></i>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6 ">
+    <div class="portlet box blue">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="fa fa-gift"></i> Edit Ratios
+        </div>
+        <div class="tools">
+          <a class="collapse" href="">
+          </a>
+        </div>
+      </div>
+      <div class="portlet-body form">
+        <%= form_for(@preferences, :url => '/super_admin/merchants/update_tax_ratios', :html => {:id => "ratios_form", :onsubmit => "return false"}) do |f| %>
+
+            <div class="form-body">
+              <div class="row" id="errors"></div>
+              <div class="row">
+                <div class="col-md-10 ">
+                  <div class="form-group">
+                    <label>Tax (%)</label>
+
+                    <div class="input-group">
+                      <%= f.text_field :tax_percentage, :autofocus => true, :class => "form-control", :placeholder => "Tax Ratio in Percentage..." %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-10">
+                  <div class="form-group">
+                    <label>Convenience Fee For Credit/Debit (%) </label>
+
+                    <div class="input-group">
+                      <%= f.text_field :convenience_fee, :autofocus => true, :class => "form-control", :placeholder => "Convenience Fee Ratio in Percentage..." %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-10">
+                  <div class="form-group">
+                    <label>Convenience Fee For Cash ($)</label>
+
+                    <div class="input-group">
+                      <%= f.text_field :cash_convenience_fee, :class => "form-control", :placeholder => "Convenience Fee for Cash Ratio in Dollars ..." %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-10">
+                  <div class="form-group">
+                    <label>Rewards For Customers ($)</label>
+
+                    <div class="input-group">
+                      <%= f.text_field :reward, :class => "form-control", :placeholder => "Customer Reward Fee..." %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <div class="z_100" id="save-btn">
+                <a class="btn blue" href="javascript:void(0)">Update</a>
+              </div>
+            </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clearfix">
+</div>
+<script>
+
+    $(document).ready(function () {
+
+        $("#ratios_form").validate({
+            rules: {
+                "preferences[tax_percentage]": {
+                    required: true,
+                    number: true
+                },
+                "preferences[convenience_fee]": {
+                    required: true,
+                    number: true
+                },
+                "preferences[reward]": {
+                    required: true,
+                    number: true
+                },
+                "preferences[cash_convenience_fee]": {
+                    required: true,
+                    number: true
+                }
+            }
+        });
+
+        $("#save-btn").children("a").click(function () {
+            if ($("#ratios_form").valid() == true) {
+                $("#ajax_loader").show();
+                $(".shadow").show();
+                $.post($(this).parents("form").attr("action"), $(this).parents("form").serialize(), (function (response) {
+                    if (response.success) {
+                        $("#ajax_loader").hide();
+                        $(".shadow").hide();
+                        alert(response.message)
+                    } else {
+                        $("#errors").html(response.html);
+                        $("#ajax_loader").hide();
+                        $(".shadow").hide();
+                    }
+
+                }), "json");
+                return false;
+            }
+
+            else {
+                alert("All fields must be integers.")
+            }
+        });
+    });
+</script>

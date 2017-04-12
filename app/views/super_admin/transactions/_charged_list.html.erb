@@ -1,0 +1,41 @@
+<table class="table table-striped table-bordered table-hover" id="customer_table1">
+  <thead>
+  <tr>
+    <th>
+      Merchant Name
+    </th>
+    <th>
+      Total Transactions
+    </th>
+    <th>
+      Amount Charged
+    </th>
+    <th>
+      View
+    </th>
+  </tr>
+  </thead>
+  <% unless @shop_charged_transactions.blank? %>
+      <tbody>
+      <% @shop_charged_transactions.each_with_index do |shop, index| %>
+          <tr class="odd gradeX">
+            <td>
+              <%= shop.name %>
+            </td>
+            <td>
+              <%= shop.order_transactions.length %></a>
+            </td>
+            <td class="center">
+              <%= '%.2f' % shop.order_transactions.map { |h| h[:convenience_fee] }.sum %>
+            </td>
+            <td>
+              <a href="/super_admin/transactions/charged_shop_transactions?id=<%= shop.id %>" style="text-decoration:none">
+                <span class="icon fa fa-expand">View</span>
+              </a>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+  <% end %>
+</table>
+

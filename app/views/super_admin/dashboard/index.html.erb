@@ -1,0 +1,425 @@
+<div class="row">
+  <div class="col-md-12">
+    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+    <h3 class="page-title">
+      Dashboard
+      <small>statistics and more</small>
+    </h3>
+    <ul class="page-breadcrumb breadcrumb">
+      <li>
+        <i class="fa fa-home"></i>
+        <a href="/super_admin/dashboard">Home</a>
+        <i class="fa fa-angle-right"></i>
+      </li>
+      <li>
+        <a href="/super_admin/dashboard">Dashboard</a>
+      </li>
+      <li class="pull-right">
+        <div id="dashboard-report-range_new" class="dashboard-date-range tooltips" data-placement="top" data-original-title="Change dashboard date range">
+          <i class="icon-calendar"></i>
+          <span></span>
+          <i class="fa fa-angle-down"></i>
+        </div>
+      </li>
+    </ul>
+    <!-- END PAGE TITLE & BREADCRUMB-->
+  </div>
+</div>
+<div id="dash_list">
+  <%= render :partial => "/super_admin/dashboard/dash_list" %>
+</div>
+<div class="row">
+  <div class="col-md-6 ">
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="page-breadcrumb breadcrumb">
+
+          <li class="pull-left">
+            <div id="dashboard-report-range_active_store" class="dashboard-date-range tooltips" data-placement="top" data-original-title="Change dashboard date range">
+              <i class="icon-calendar"></i>
+              <span></span>
+              <i class="fa fa-angle-down"></i>
+            </div>
+          </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+      </div>
+    </div>
+    <div id="active_store_list">
+      <%= render :partial => "/super_admin/dashboard/active_stores" %>
+    </div>
+  </div>
+  <div class="col-md-6 ">
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="page-breadcrumb breadcrumb">
+
+          <li class="pull-left">
+            <div id="dashboard-report-range_recent_order" class="dashboard-date-range tooltips" data-placement="top" data-original-title="Change dashboard date range">
+              <i class="icon-calendar"></i>
+              <span></span>
+              <i class="fa fa-angle-down"></i>
+            </div>
+          </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+      </div>
+    </div>
+    <div id="recent_order_list">
+      <%= render :partial => "/super_admin/dashboard/recent_orders" %>
+    </div>
+  </div>
+</div>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#dashboard-report-range_new span').html(moment().subtract('days', 29).format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+        $('#dashboard-report-range_new').show();
+        var start_date = moment().subtract('days', 29).format('YYYY-MM-DD');
+        var end_date = moment().format('YYYY-MM-DD');
+        $("#ajax_loader").show();
+        $(".shadow").show();
+        $.ajax({
+            url: '/super_admin/dashboard/get_dashboard?start_date=' + start_date + "&end_date=" + end_date,
+            type: 'get',
+            dataType: 'html',
+            processData: false,
+            success: function (data) {
+                $("#dash_list").html(data);
+                $("#ajax_loader").hide();
+                $(".shadow").hide();
+            }
+        });
+
+        //Stores
+
+        $('#dashboard-report-range_active_store span').html(moment().subtract('days', 29).format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+        $('#dashboard-report-range_active_store').show();
+
+        $("#ajax_loader").show();
+        $(".shadow").show();
+        $.ajax({
+            url: '/super_admin/dashboard/get_active_store?start_date=' + start_date + "&end_date=" + end_date,
+            type: 'get',
+            dataType: 'html',
+            processData: false,
+            success: function (data) {
+                $("#active_store_list").html(data);
+                $("#ajax_loader").hide();
+                $(".shadow").hide();
+            }
+        });
+
+
+        // Recent Orders
+
+        $('#dashboard-report-range_recent_order span').html(moment().subtract('days', 29).format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+        $('#dashboard-report-range_recent_order').show();
+
+        $("#ajax_loader").show();
+        $(".shadow").show();
+        $.ajax({
+            url: '/super_admin/dashboard/get_recent_orders?start_date=' + start_date + "&end_date=" + end_date,
+            type: 'get',
+            dataType: 'html',
+            processData: false,
+            success: function (data) {
+                $("#recent_order_list").html(data);
+                $("#ajax_loader").hide();
+                $(".shadow").hide();
+            }
+        });
+
+
+    })
+    $('#dashboard-report-range_new').daterangepicker({
+                opens: (Metronic.isRTL() ? 'right' : 'left'),
+                startDate: moment().subtract('days', 29),
+                endDate: moment(),
+//                minDate: '01/01/2012',
+//                maxDate: '12/31/2014',
+                dateLimit: {
+                    days: 60
+                },
+                showDropdowns: false,
+                showWeekNumbers: true,
+                timePicker: false,
+                timePickerIncrement: 1,
+                timePicker12Hour: true,
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
+                    'Last 7 Days': [moment().subtract('days', 6), moment()],
+                    'Last 30 Days': [moment().subtract('days', 29), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+                },
+                buttonClasses: ['btn btn-sm'],
+                applyClass: ' blue',
+                cancelClass: 'default',
+                format: 'MM/DD/YYYY',
+                separator: ' to ',
+                locale: {
+                    applyLabel: 'Apply',
+                    fromLabel: 'From',
+                    toLabel: 'To',
+                    customRangeLabel: 'Custom Range',
+                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                    monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    firstDay: 1
+                }
+            },
+            function (start, end) {
+                $('#dashboard-report-range_new span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                var start_date = start.format('YYYY-MM-DD')
+                var end_date = end.format('YYYY-MM-DD')
+                $("#ajax_loader").show();
+                $(".shadow").show();
+                $.ajax({
+                    url: '/super_admin/dashboard/get_dashboard?start_date=' + start_date + "&end_date=" + end_date,
+                    type: 'get',
+                    dataType: 'html',
+                    processData: false,
+                    success: function (data) {
+                        $("#dash_list").html(data);
+                        $("#ajax_loader").hide();
+                        $(".shadow").hide();
+                    }
+                });
+            }
+    );
+
+    $('#dashboard-report-range_active_store').daterangepicker({
+                opens: (Metronic.isRTL() ? 'right' : 'left'),
+                startDate: moment().subtract('days', 29),
+                endDate: moment(),
+//                minDate: '01/01/2012',
+//                maxDate: '12/31/2014',
+                dateLimit: {
+                    days: 60
+                },
+                showDropdowns: false,
+                showWeekNumbers: true,
+                timePicker: false,
+                timePickerIncrement: 1,
+                timePicker12Hour: true,
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
+                    'Last 7 Days': [moment().subtract('days', 6), moment()],
+                    'Last 30 Days': [moment().subtract('days', 29), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+                },
+                buttonClasses: ['btn btn-sm'],
+                applyClass: ' blue',
+                cancelClass: 'default',
+                format: 'MM/DD/YYYY',
+                separator: ' to ',
+                locale: {
+                    applyLabel: 'Apply',
+                    fromLabel: 'From',
+                    toLabel: 'To',
+                    customRangeLabel: 'Custom Range',
+                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                    monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    firstDay: 1
+                }
+            },
+            function (start, end) {
+                $('#dashboard-report-range_active_store span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                var start_date = start.format('YYYY-MM-DD')
+                var end_date = end.format('YYYY-MM-DD')
+                $("#ajax_loader").show();
+                $(".shadow").show();
+                $.ajax({
+                    url: '/super_admin/dashboard/get_active_store?start_date=' + start_date + "&end_date=" + end_date,
+                    type: 'get',
+                    dataType: 'html',
+                    processData: false,
+                    success: function (data) {
+                        $("#active_store_list").html(data);
+                        $("#ajax_loader").hide();
+                        $(".shadow").hide();
+                    }
+                });
+            });
+
+    //Recent Orders
+
+    $('#dashboard-report-range_recent_order').daterangepicker({
+                opens: (Metronic.isRTL() ? 'right' : 'left'),
+                startDate: moment().subtract('days', 29),
+                endDate: moment(),
+//                minDate: '01/01/2012',
+//                maxDate: '12/31/2014',
+                dateLimit: {
+                    days: 60
+                },
+                showDropdowns: false,
+                showWeekNumbers: true,
+                timePicker: false,
+                timePickerIncrement: 1,
+                timePicker12Hour: true,
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
+                    'Last 7 Days': [moment().subtract('days', 6), moment()],
+                    'Last 30 Days': [moment().subtract('days', 29), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+                },
+                buttonClasses: ['btn btn-sm'],
+                applyClass: ' blue',
+                cancelClass: 'default',
+                format: 'MM/DD/YYYY',
+                separator: ' to ',
+                locale: {
+                    applyLabel: 'Apply',
+                    fromLabel: 'From',
+                    toLabel: 'To',
+                    customRangeLabel: 'Custom Range',
+                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                    monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    firstDay: 1
+                }
+            },
+            function (start, end) {
+                $('#dashboard-report-range_recent_order span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                var start_date = start.format('YYYY-MM-DD')
+                var end_date = end.format('YYYY-MM-DD')
+                $("#ajax_loader").show();
+                $(".shadow").show();
+                $.ajax({
+                    url: '/super_admin/dashboard/get_recent_orders?start_date=' + start_date + "&end_date=" + end_date,
+                    type: 'get',
+                    dataType: 'html',
+                    processData: false,
+                    success: function (data) {
+                        $("#recent_order_list").html(data);
+                        $("#ajax_loader").hide();
+                        $(".shadow").hide();
+                    }
+                });
+            });
+
+
+    jQuery(document).ready(function () {
+        TableManaged.init();
+        initialize_active_store_table();
+        initialize_recent_order_table();
+    });
+
+
+    // Active store table
+
+    function initialize_active_store_table() {
+        var active_table = $('#active_store_table');
+
+        // begin first table
+        active_table.dataTable({
+            "columns": [
+                {
+                    "orderable": true
+                },
+                {
+                    "orderable": true
+                },
+                {
+                    "orderable": true
+                }
+
+
+            ],
+            "lengthMenu": [
+                [5, 15, 20, -1],
+                [5, 15, 20, "All"] // change per page values here
+            ],
+            // set the initial value
+            "pageLength": 11,
+            "pagingType": "bootstrap_full_number",
+            "language": {
+                "lengthMenu": "_MENU_ records",
+                "paginate": {
+                    "previous": "Prev",
+                    "next": "Next",
+                    "last": "Last",
+                    "first": "First"
+                }
+            },
+            "columnDefs": [
+                {  // set default column settings
+                    'orderable': false,
+                    'targets': [0]
+                },
+                {
+                    "searchable": false,
+                    "targets": [0]
+                }
+            ],
+            "order": [
+                [1, "asc"]
+            ] // set first column as a default sort by asc
+        });
+
+    }
+
+
+    // Recent Order Table
+
+    function initialize_recent_order_table() {
+        var active_table = $('#recent_order_table');
+
+        // begin first table
+        active_table.dataTable({
+            "columns": [
+                {
+                    "orderable": true
+                },
+                {
+                    "orderable": true
+                },
+                {
+                    "orderable": true
+                }
+
+
+            ],
+            "lengthMenu": [
+                [5, 15, 20, -1],
+                [5, 15, 20, "All"] // change per page values here
+            ],
+            // set the initial value
+            "pageLength": 11,
+            "pagingType": "bootstrap_full_number",
+            "language": {
+                "lengthMenu": "_MENU_ records",
+                "paginate": {
+                    "previous": "Prev",
+                    "next": "Next",
+                    "last": "Last",
+                    "first": "First"
+                }
+            },
+            "columnDefs": [
+                {  // set default column settings
+                    'orderable': false,
+                    'targets': [0]
+                },
+                {
+                    "searchable": false,
+                    "targets": [0]
+                }
+            ],
+            "order": [
+                [1, "asc"]
+            ] // set first column as a default sort by asc
+        });
+
+    }
+
+
+</script>
+

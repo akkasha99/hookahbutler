@@ -1,0 +1,39 @@
+<table class="table table-striped table-bordered table-hover" id="break_down_table">
+  <thead>
+  <tr>
+    <th>
+      State
+    </th>
+    <th>
+      Orders
+    </th>
+    <th>
+      Customers
+    </th>
+    <th>
+      Sales
+    </th>
+  </tr>
+  </thead>
+  <% unless @state_array.blank? %>
+      <tbody>
+      <% @state_array.each_with_index do |hash| %>
+          <tr class="odd gradeX">
+            <td>
+              <%= hash[:state] %>
+            </td>
+            <td>
+              <%= hash[:orders] %>
+            </td>
+            <td class="center">
+              <%= hash[:customers] %>
+            </td>
+            <td class="center">
+              <%= number_to_currency(hash[:sales].blank? ? 0 : hash[:sales], precision: 2) %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+  <% end %>
+</table>
+

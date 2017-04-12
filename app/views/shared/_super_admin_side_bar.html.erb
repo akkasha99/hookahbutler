@@ -1,0 +1,191 @@
+<div class="page-sidebar-wrapper">
+  <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+  <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+  <div class="page-sidebar navbar-collapse collapse">
+    <!-- BEGIN SIDEBAR MENU -->
+    <ul data-slide-speed="200" data-auto-scroll="true" class="page-sidebar-menu">
+      <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+      <li class="sidebar-toggler-wrapper">
+        <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+        <div class="sidebar-toggler">
+        </div>
+        <!-- END SIDEBAR TOGGLER BUTTON -->
+      </li>
+      <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
+
+      <li class="start <%= params[:controller].include?('super_admin/dashboard') ? 'active' : '' %>">
+        <a href="/super_admin/dashboard">
+          <i class="icon-home"></i>
+          <span class="title">Dashboard</span>
+          <span class="selected"></span>
+        </a>
+      </li>
+      <li class="<%= params[:controller].include?('super_admin/merchants') && params[:action] != "tax_ratios" ? 'active' : '' %>">
+        <a href="javascript:;">
+          <i class="icon-user"></i>
+          <span class="title">Stores</span>
+          <span class="arrow "></span>
+        </a>
+        <ul class="sub-menu">
+          <li>
+            <a href="/super_admin/merchants">
+              <i class="icon-home"></i>
+              All Stores</a>
+          </li>
+          <li>
+            <a href="/super_admin/merchants/new">
+              <i class="icon-basket"></i>
+              Create Store</a>
+          </li>
+        </ul>
+      </li>
+      <li class="<%= params[:controller].include?('super_admin/customers') ? 'active' : '' %>">
+        <a href="javascript:;">
+          <i class="icon-user"></i>
+          <span class="title">Customers</span>
+          <span class="arrow "></span>
+        </a>
+        <ul class="sub-menu">
+          <li>
+            <a href="/super_admin/customers">
+              <i class="icon-home"></i>
+              All Customers</a>
+          </li>
+          <li>
+            <a href="/super_admin/customers/new">
+              <i class="icon-basket"></i>
+              Create Customer</a>
+          </li>
+        </ul>
+      </li>
+      <li class="<%= params[:controller].include?('super_admin/merchants') && params[:action] == "tax_ratios" ? 'active' : '' %>">
+        <a href="/super_admin/merchants/tax_ratios">
+          <i class="icon-wrench"></i>
+          <span class="title">Change Ratios</span>
+          <span class="arrow"></span>
+        </a>
+      </li>
+      <li class="<%= params[:controller].include?('super_admin/transactions') ? 'active' : '' %>">
+        <a href="/super_admin/transactions">
+          <i class="fa fa-money"></i>
+          <span class="title">Transactions</span>
+          <span class="arrow"></span>
+        </a>
+      </li>
+      <!--<li class="<%#= params[:controller].include?('super_admin/orders') ? 'active' : '' %>">-->
+      <!--<a href="/super_admin/orders">-->
+      <!--<i class="icon-diamond"></i>-->
+      <!--<span class="title">Orders</span>-->
+      <!--<span class="arrow "></span>-->
+      <!--</a>-->
+      <!--</li>-->
+      <!--<li class="<%#= params[:controller].include?('super_admin/analytics') ? 'active' : '' %>">-->
+      <!--<a href="javascript:;">-->
+      <!--<i class="icon-bar-chart"></i>-->
+      <!--<span class="title">Analytics</span>-->
+      <!--<span class="arrow "></span>-->
+      <!--</a>-->
+      <!--<ul class="sub-menu">-->
+      <!--<li>-->
+      <!--<a href="/super_admin/analytics">-->
+      <!--<i class="icon-home"></i>-->
+      <!--All Analytics</a>-->
+      <!--</li>-->
+      <!--<li>-->
+      <!--<a href="/super_admin/analytics/break_down_by_state">-->
+      <!--<i class="icon-basket"></i>-->
+      <!--Break Down By States</a>-->
+      <!--</li>-->
+      <!--</ul>-->
+      <!--</li>-->
+      <!--<li class="<%#= params[:controller].include?('super_admin/categories') ? 'active' : '' %>">-->
+      <!--<a href="javascript:;">-->
+      <!--<i class="icon-docs"></i>-->
+      <!--<span class="title">Categories</span>-->
+      <!--<span class="arrow "></span>-->
+      <!--</a>-->
+      <!--<ul class="sub-menu">-->
+      <!--<li>-->
+      <!--<a href="/super_admin/categories">-->
+      <!--<i class="icon-home"></i>-->
+      <!--All Categories</a>-->
+      <!--</li>-->
+      <!--<li>-->
+      <!--<a href="/super_admin/categories/new">-->
+      <!--<i class="icon-basket"></i>-->
+      <!--Create Categories</a>-->
+      <!--</li>-->
+      <!--</ul>-->
+      <!--</li>-->
+      <!--<li class="<%#= params[:controller].include?('super_admin/sub_categories') ? 'active' : '' %>">-->
+      <!--<a href="javascript:;">-->
+      <!--<i class="icon-docs"></i>-->
+      <!--<span class="title">Sub Categories</span>-->
+      <!--<span class="arrow "></span>-->
+      <!--</a>-->
+      <!--<ul class="sub-menu">-->
+      <!--<li>-->
+      <!--<a href="/super_admin/sub_categories">-->
+      <!--<i class="icon-home"></i>-->
+      <!--All Sub Categories</a>-->
+      <!--</li>-->
+      <!--<li>-->
+      <!--<a href="/super_admin/sub_categories/new">-->
+      <!--<i class="icon-basket"></i>-->
+      <!--Create Sub Category</a>-->
+      <!--</li>-->
+      <!--</ul>-->
+      <!--</li>-->
+
+      <!--<li class="<%#= params[:controller].include?('super_admin/meta_categories') ? 'active' : '' %>">-->
+      <!--<a href="javascript:;">-->
+      <!--<i class="icon-docs"></i>-->
+      <!--<span class="title">Meta Categories</span>-->
+      <!--<span class="arrow "></span>-->
+      <!--</a>-->
+      <!--<ul class="sub-menu">-->
+      <!--<li>-->
+      <!--<a href="/super_admin/meta_categories">-->
+      <!--<i class="icon-home"></i>-->
+      <!--All Meta Categories</a>-->
+      <!--</li>-->
+      <!--<li>-->
+      <!--<a href="/super_admin/meta_categories/new">-->
+      <!--<i class="icon-basket"></i>-->
+      <!--Create Meta Category</a>-->
+      <!--</li>-->
+      <!--</ul>-->
+      <!--</li>-->
+
+      <!--<li class="<%#= params[:controller].include?('super_admin/sugars') ? 'active' : '' %>">-->
+      <!--<a href="javascript:;">-->
+      <!--<i class="icon-docs"></i>-->
+      <!--<span class="title">Sugars</span>-->
+      <!--<span class="arrow "></span>-->
+      <!--</a>-->
+      <!--<ul class="sub-menu">-->
+      <!--<li>-->
+      <!--<a href="/super_admin/sugars">-->
+      <!--<i class="icon-home"></i>-->
+      <!--All Sugars</a>-->
+      <!--</li>-->
+      <!--<li>-->
+      <!--<a href="/super_admin/sugars/new">-->
+      <!--<i class="icon-basket"></i>-->
+      <!--Create Sugars</a>-->
+      <!--</li>-->
+      <!--</ul>-->
+      <!--</li>-->
+      <!--<li class="<%#= params[:controller].include?('super_admin/coupon_codes') ? 'active' : '' %>">-->
+      <!--<a href="/super_admin/coupon_codes">-->
+      <!--<i class="icon-rocket"></i>-->
+      <!--<span class="title">Coupon Codes</span>-->
+      <!--<span class="arrow "></span>-->
+      <!--</a>-->
+      <!--</li>-->
+
+
+    </ul>
+    <!-- END SIDEBAR MENU -->
+  </div>
+</div>

@@ -1,0 +1,62 @@
+<div class="col-md-12">
+  <!-- BEGIN EXAMPLE TABLE PORTLET-->
+  <div class="portlet box grey-cascade">
+    <div class="portlet-title">
+      <div class="caption">
+        <i class="fa fa-globe"></i>Most Active Stores
+      </div>
+      <div class="tools">
+        <a href="javascript:;" class="collapse">
+        </a>
+        </a>
+        <a href="javascript:;" class="reload">
+        </a>
+        <a href="javascript:;" class="remove">
+        </a>
+      </div>
+    </div>
+    <div class="portlet-body">
+      <div id="">
+        <table class="table table-striped table-bordered table-hover" id="active_store_table">
+          <thead>
+          <tr>
+            <th>
+              Store
+            </th>
+            <th>
+              Address
+            </th>
+            <th>
+              Orders
+            </th>
+          </tr>
+          </thead>
+          <% unless @active_stores.blank? %>
+              <tbody>
+              <% @active_stores.each_with_index do |store, index| %>
+                  <% if index < 11 %>
+                      <tr class="odd gradeX">
+
+                        <td>
+                          <%= store.name %>
+                        </td>
+                        <td>
+                          <%= store.address %>
+                        </td>
+                        <td class="center">
+                          <%= store.orders.size %>
+                        </td>
+                      </tr>
+                  <% end %>
+              <% end %>
+              </tbody>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- END EXAMPLE TABLE PORTLET-->
+</div>
+
+
+

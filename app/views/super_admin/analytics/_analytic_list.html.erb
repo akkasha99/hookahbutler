@@ -1,0 +1,229 @@
+<!--<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>-->
+
+<script type="text/javascript">
+
+
+    $(function () {
+        $('#sales_chart').highcharts({
+            title: {
+                text: '',
+                x: 0 //center
+            },
+            subtitle: {
+                text: '',
+                x: 0
+            },
+            xAxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            },
+            yAxis: {
+                title: {
+                    text: 'Sales ($)'
+                },
+                plotLines: [
+                    {
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }
+                ]
+            },
+
+            credits: {
+                enabled: false
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '<td style="padding:0"><b>{point.y:.0f}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            series: [
+                {
+                    name: 'Sales',
+                    data: <%=@sales_array%>
+                },
+                {
+                    name: 'Revenue',
+                    data: <%=@revenue_array%>
+                }
+
+            ]
+        });
+        $('#order_chart').highcharts({
+            title: {
+                text: '',
+                x: -20 //center
+            },
+            subtitle: {
+                text: '',
+                x: -20
+            },
+            xAxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            },
+            yAxis: {
+                title: {
+                    text: 'Customers & Orders'
+                },
+                plotLines: [
+                    {
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }
+                ]
+            },
+
+            credits: {
+                enabled: false
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '<td style="padding:0"><b>{point.y:.0f}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            series: [
+                {
+                    name: 'Customers',
+                    data: <%=@customer_array%>
+                },
+                {
+                    name: 'Orders',
+                    data: <%=@order_array%>
+                }
+
+            ]
+        });
+    });
+</script>
+
+<div class="row">
+  <div class="col-md-6 col-sm-6">
+    <!-- BEGIN PORTLET-->
+
+    <!-- END PORTLET-->
+    <div id="sales_chart"></div>
+    <div class="row">
+      <div class="col-md-3 col-sm-3 col-xs-6 text-stat">
+										<span class="label label-sm label-success">
+										Total Sale: </span>
+
+        <h3>$<%= @total_sales %></h3>
+      </div>
+      <div class="col-md-3 col-sm-3 col-xs-6 text-stat">
+										<span class="label label-sm label-info">
+										Total Revenue: </span>
+
+        <h3>$<%= @total_revenue %></h3>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-md-6 col-sm-6">
+    <!-- BEGIN PORTLET-->
+    <div id="order_chart"></div>
+    <div class="row">
+      <div class="col-md-3 col-sm-3 col-xs-6 text-stat">
+										<span class="label label-sm label-danger">
+										Total Customers: </span>
+
+        <h3><%= @total_customers %></h3>
+      </div>
+      <div class="col-md-3 col-sm-3 col-xs-6 text-stat">
+										<span class="label label-sm label-warning">
+										Total Orders: </span>
+
+        <h3><%= @total_orders %></h3>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12 col-sm-12" style="margin-top: 30px">
+    <div class="portlet box blue-steel">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="fa"></i>Orders
+        </div>
+        <div class="actions">
+          <div class="btn-group">
+            <%= select_tag("order_merchant_id", options_for_select([["All Stores", ""]] + User.merchants.map { |merchant| [merchant.full_name, merchant.id] }), :class => "form-control") %>
+          </div>
+        </div>
+      </div>
+      <div class="portlet-body" id='order_list'>
+        <%= render :partial => "/super_admin/analytics/orders" %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12 col-sm-12" style="margin-top: 30px">
+    <div class="portlet box blue-steel">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="fa"></i>Customers
+        </div>
+        <div class="actions">
+          <div class="btn-group">
+            <%= select_tag("customer_merchant_id", options_for_select([["All Stores", ""]] + User.merchants.map { |merchant| [merchant.full_name, merchant.id] }), :class => "form-control") %>
+          </div>
+        </div>
+      </div>
+      <div class="portlet-body" id='customer_list'>
+        <%= render :partial => "/super_admin/analytics/customers" %>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+    $("#order_merchant_id").change(function () {
+        $("#ajax_loader").show();
+        $(".shadow").show();
+        $.ajax({
+            url: '/super_admin/analytics/get_order_stats?id=' + $("#order_merchant_id").val(),
+            type: 'get',
+            dataType: 'html',
+            processData: false,
+            success: function (data) {
+                $("#order_list").html(data);
+                $("#ajax_loader").hide();
+                $(".shadow").hide();
+            }
+        });
+    });
+
+    $("#customer_merchant_id").change(function () {
+        $("#ajax_loader").show();
+        $(".shadow").show();
+        $.ajax({
+            url: '/super_admin/analytics/get_customer_stats?id=' + $("#customer_merchant_id").val(),
+            type: 'get',
+            dataType: 'html',
+            processData: false,
+            success: function (data) {
+                $("#customer_list").html(data);
+                $("#ajax_loader").hide();
+                $(".shadow").hide();
+            }
+        });
+    });
+
+</script>
+

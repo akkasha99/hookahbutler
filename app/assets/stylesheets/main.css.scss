@@ -1,0 +1,428 @@
+// Place all the styles related to the settings controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#error_explanation {
+  background: none repeat scroll 0 0 pink;
+  border: 1px solid #991514;
+  float: left;
+  margin: 20px 0px;
+  padding: 5px 10px;
+  width: 95%;
+  .close-errors {
+    float: right;
+    width: auto;
+    margin: 5px;
+    a {
+      font-weight: bolder;
+      text-decoration: none;
+      color: #666666;
+    }
+  }
+  h2 {
+    float: left;
+    width: 100%;
+  }
+  ul {
+    margin-top: 10px;
+    list-style: none;
+    float: left;
+    width: 100%;
+    li {
+      font-size: 14px;
+    }
+  }
+}
+
+.alert {
+  background-color: #DE4343;
+  border-color: #C43D3D;
+}
+
+.notice {
+  background-color: #61B832;
+  border-color: #55A12C;
+}
+
+.message {
+  animation: 5s linear 0s normal none infinite animate-bg;
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.05) 75%, transparent 75%, transparent);
+  background-size: 40px 40px;
+  border: 1px solid;
+  box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.4) inset;
+  color: #FFFFFF;
+  padding: 15px;
+  position: fixed;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+  width: 100%;
+  margin-top: 0px;
+  z-index: 100;
+}
+
+.delete_btn {
+  width: 100%;
+  clear: both;
+  display: inline-block;
+  text-align: center;
+}
+
+.delete_btn a {
+  width: 100%;
+  display: inline-block;
+  background: red;
+  height: 43px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  border: none;
+  padding: 15px;
+  color: #fff;
+  font-size: 16px;
+}
+
+.delete_btn {
+  margin: 20px 0 30px !important;
+}
+
+.container_partner_new {
+  width: 65%;
+  margin: 0 auto;
+  margin-top: 18px;
+}
+
+.g_inpts_hld_new {
+  width: 100%;
+  margin: 20px 0px;
+  p {
+    text-align: center;
+  }
+  .btns_holder {
+    border-top: 1px solid #333333;
+    clear: both;
+    display: inline-block;
+    width: 100%;
+    padding-top: 20px;
+    margin-top: 20px;
+    .cancel_btn {
+      width: 100%;
+      clear: both;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .cancel_btn a {
+      width: 100%;
+      display: inline-block;
+      background: #355F1F;
+      height: 43px;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      -ms-box-sizing: border-box;
+      box-sizing: border-box;
+      border: none;
+      padding: 15px;
+      color: #fff;
+      font-size: 16px;
+    }
+    .cancel_btn {
+      float: left;
+      margin-left: 105px;
+      width: 30%;
+    }
+    .login_btn {
+      margin-left: 25px;
+      width: 30%;
+    }
+  }
+}
+
+.bx-next {
+  background: transparent;
+  position: absolute;
+  left: 35px;
+  top: 5px;
+  color: transparent;
+}
+
+.bx-prev {
+  background: transparent;
+  position: absolute;
+  left: -2px;
+  top: 5px;
+  color: transparent;
+}
+
+//
+//.stp_dets {
+//  width: 61% !important;
+//}
+//
+//.stps {
+//  margin-top: -205px !important;
+//  h1 {
+//    font-size: 30px !important;
+//  }
+//  p {
+//    height: 62px !important;
+//  }
+//}
+//
+//.step1_det p {
+//  line-height: 18px !important;
+//}
+
+.g_inputitem select {
+  width: 100%;
+  background: #e5e5e5;
+  height: 43px;
+  letter-spacing: .5px;
+}
+
+.g_inputitem textarea {
+  width: 100%;
+  background: #e5e5e5;
+  height: 100px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  border: none;
+  padding: 3px 15px 0 15px;
+  color: #9a9a9a;
+  font-size: 16px;
+  letter-spacing: .5px;
+}
+
+.g_inputitem label {
+  width: 40%;
+  float: left;
+  padding: 3px 0px 0 5px;
+  color: #9a9a9a;
+  font-size: 18px;
+  letter-spacing: .5px;
+}
+
+.g_inputitem input[type=checkbox] {
+  margin-right: 5px;
+  float: left;
+  width: 20px;
+  height: 20px;
+}
+
+.g_inputitem input[type=radio] {
+  margin-right: 5px;
+  float: left;
+  width: 20px;
+  height: 20px;
+}
+
+.add_btn {
+  width: 100%;
+  clear: both;
+  display: inline-block;
+  text-align: center;
+}
+
+.add_btn a {
+  width: 100%;
+  display: inline-block;
+  background: #000;
+  height: 43px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  border: none;
+  padding: 15px;
+  color: #fff;
+  font-size: 16px;
+}
+
+.pagination_container {
+  display: inline-block;
+  margin-top: 20px !important;
+}
+
+#order-table tr:last-child {
+  border-top: none !important;
+  vertical-align: text-top !important;
+}
+
+.grassp_popupin_new {
+  width: 800px !important;
+  padding: 20px;
+}
+
+//.s_imgz {
+//  margin: 25px 0 !important;
+//}
+//
+//.s_imgz.active {
+//  margin: 25px 0 0px 0 !important;
+//}
+//
+//.pl_btn1, .p2_btn1 {
+//  vertical-align: top !important;
+//}
+//
+//.stpps span, .g_t_det2 p {
+//  text-transform: none !important;
+//}
+
+#order-table th {
+  padding: 0px 5px !important;
+}
+
+#order-table th:first-child {
+  text-align: left !important;
+}
+
+#order-table td {
+  padding-top: 15px !important;
+  vertical-align: top !important;
+}
+
+#order-table td:last-child {
+  padding: 6px 10px 0 !important;
+}
+
+.popuptable td:last-child {
+  background: none !important;
+  color: inherit !important;
+  text-align: right !important;
+}
+
+.popuptable th:last-child {
+  text-align: right !important;
+}
+
+.pl_btn1 a, .p2_btn1 a {
+  padding: 13px !important;
+}
+
+//
+//.g_t_det2 h2 {
+//  margin: 30px 0 0 15px !important;
+//}
+//
+//.g_ac_hold_small {
+//  display: none;
+//}
+//
+//.stpps h1 {
+//  margin-top: 25px !important;
+//}
+//
+//.g_accord_hed_in {
+//  border-bottom: 10px solid #376021 !important;
+//}
+//
+//#footer {
+//  border-top: none !important;
+//}
+//
+//.steps_4_small {
+//  top: 10% !important;
+//}
+.display_div {
+  display: block;
+}
+
+.slider_iphone {
+  float: left;
+  margin-right: 10%;
+  width: 28%;
+}
+
+.slider_text_container {
+  float: left;
+  margin-top: 15%;
+  width: 52%;
+}
+
+.image_height {
+  min-height: 550px;
+}
+
+.slider_div {
+  width: 100%;
+  display: block;
+}
+
+#map label {
+  width: auto;
+  display: inline;
+}
+
+#map img {
+  max-width: none;
+}
+
+.terms_container {
+  font-family: 'avenirregular';
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 40px;
+  h1 {
+    color: #49792F;
+    display: inline-block;
+    font-size: 30px;
+    font-weight: normal;
+    width: 100%;
+  }
+  h2 {
+    color: #333;
+    display: inline-block;
+    font-size: 22px;
+    font-weight: normal;
+    width: 100%;
+    margin-top: 20px;
+  }
+  h3 {
+    color: #333;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: normal;
+    width: 100%;
+    margin-top: 10px;
+  }
+  p {
+    color: #666666;
+    display: inline-block;
+    font-size: 14px;
+    line-height: 20px;
+    margin: 0px;
+    width: 100%;
+    clear: both;
+  }
+  b {
+    color: #333 !important;
+  }
+  ul {
+    margin: 0px 30px;
+    width: 90%;
+    li {
+      color: #666666 !important;
+      font-size: 14px;
+      line-height: 20px;
+      list-style: disc !important;
+    }
+  }
+  ul.table-content {
+    margin: 0px 30px;
+    width: 90%;
+    li {
+      color: #666666 !important;
+      font-size: 14px;
+      line-height: 20px;
+      list-style: decimal !important;
+    }
+  }
+}
+
+#order-table input[type=text] {
+  width: 100%;
+  display: inline-block;
+  margin: 0px 0px 5px -5px;
+}

@@ -1,0 +1,92 @@
+<div class="row">
+  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <div class="dashboard-stat blue-madison">
+      <div class="visual">
+        <i class="fa fa-comments"></i>
+      </div>
+      <div class="details">
+        <div class="number font_set">
+          <%= @new_stores %> New
+        </div>
+        <div class="desc font_set">
+          <%= @stores %> Total
+        </div>
+      </div>
+      <a href="/super_admin/merchants" class="more font_set2">
+        Stores
+      </a>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <div class="dashboard-stat red-intense">
+      <div class="visual">
+        <i class="fa fa-bar-chart-o"></i>
+      </div>
+      <div class="details">
+        <div class="number font_set">
+          <%= @new_customers %> New
+        </div>
+        <div class="desc font_set">
+          <%= @customers %> Total
+        </div>
+      </div>
+      <a href="/super_admin/customers" class="more font_set2">
+        Customers
+      </a>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <div class="dashboard-stat green-haze">
+      <div class="visual">
+        <i class="fa fa-shopping-cart"></i>
+      </div>
+      <div class="details">
+        <div class="number font_set">
+          <%= @new_orders %> New
+        </div>
+        <div class="desc font_set">
+          <%= @new_orders %> Total
+        </div>
+      </div>
+      <a href="/super_admin/orders" class="more font_set2">
+        Orders
+      </a>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <div class="dashboard-stat purple-plum">
+      <div class="visual">
+        <i class="fa fa-globe"></i>
+      </div>
+      <div class="details">
+        <div class="number font_set">
+          $ <%= '%.2f' % @today_sale.round(2) %> Today
+        </div>
+        <div class="desc font_set">
+          $ <%= '%.2f' % @sale.round(2) %> Total
+        </div>
+      </div>
+      <a href="/super_admin/orders" class="more font_set2">
+        Sales
+      </a>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <div class="dashboard-stat purple-plum">
+      <div class="visual">
+        <i class="fa fa-globe"></i>
+      </div>
+      <div class="details">
+        <div class="number font_set">
+          <%= @reviews %> New
+        </div>
+        <div class="desc font_set">
+          <%= @today_reviews %> Total
+        </div>
+      </div>
+      <a href="javascript:void(0)" class="more font_set2">
+        Reviews
+      </a>
+    </div>
+  </div>
+</div>
